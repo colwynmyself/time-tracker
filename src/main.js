@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const session = require('express-session');
+const RedisStore = require('connect-redis')(session);
 
 // Server variables
 const port = process.env.TIME_TRACKER_PORT || 3001;
@@ -18,7 +19,10 @@ const Passport = require('./utils/passport');
 // Object inits
 const app = express();
 const passport = Passport(app, db);
-app.use(session({ secret: credentials.sessionKey }));
+app.use(session({
+  store: new RedisStore(),
+  secret: credentials.sessionKey,
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 
