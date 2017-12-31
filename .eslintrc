@@ -1,6 +1,6 @@
 {
     "rules": {
-        "indent": ["error", 4]
+        "arrow-body-style": "off"
     },
     "extends": "airbnb"
 }

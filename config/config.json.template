@@ -1,0 +1,21 @@
+{
+  "development": {
+    "database": "",
+    "username": "",
+    "password": "",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres"
+  },
+  "test": {
+    "database": "",
+    "username": "",
+    "password": "",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres"
+  },
+  "production": {
+    "use_env_variable": "DB_ENV"
+  }
+}
