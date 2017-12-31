@@ -30,6 +30,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Routes
 routes(app, db, passport);
 
+app.get('/', (req, res) => {
+  if (!req.user) {
+    res.send('<a href="/auth/google" title="Login">Login</a>');
+  } else {
+    res.send(`Hello, ${req.user.name}!`);
+  }
+});
+
 // 404
 app.all('*', (req, res) => {
   res.status(404).send();
