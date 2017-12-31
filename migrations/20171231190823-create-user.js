@@ -10,13 +10,8 @@ module.exports = {
       name: {
         type: Sequelize.STRING,
       },
-      email: {
+      googleId: {
         unique: true,
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      password: {
-        allowNull: false,
         type: Sequelize.STRING,
       },
       createdAt: {
