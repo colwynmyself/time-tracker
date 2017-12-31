@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const session = require('express-session');
+const helmet = require('helmet');
 const RedisStore = require('connect-redis')(session);
 
 // Server variables
@@ -18,6 +19,12 @@ const Passport = require('./utils/passport');
 
 // Object inits
 const app = express();
+
+// App middleware
+app.use(helmet());
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 const passport = Passport(app, db);
 app.use(session({
   store: new RedisStore(),
@@ -25,11 +32,6 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-
-// App middleware
-app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 // Routes
 routes(app, db, passport);
