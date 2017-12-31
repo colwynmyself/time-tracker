@@ -14,10 +14,6 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Action.associate = (models) => {
-    Action.hasOne(models.Category, {
-      foreignKey: 'categoryId',
-    });
-
     Action.belongsTo(models.User, {
       foreignKey: 'userId',
     });

@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
 
   User.associate = (models) => {
     User.hasMany(models.Action, {
-      foreignKey: 'actionId',
+      foreignKey: 'userId',
       onDelete: 'CASCADE',
     });
   };

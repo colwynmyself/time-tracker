@@ -29,6 +29,30 @@ app.get('/', (req, res) => {
   res.status(response.statusCode).json(response.generateJSON());
 });
 
+// Users
+app.get('/users', async (req, res) => {
+  const users = await db.User.findAll();
+  const response = new Response(200, { users });
+
+  res.status(response.statusCode).json(response.generateJSON());
+});
+
+// Actions
+app.get('/actions', async (req, res) => {
+  const actions = await db.Action.findAll();
+  const response = new Response(200, { actions });
+
+  res.status(response.statusCode).json(response.generateJSON());
+});
+
+// Categories
+app.get('/categories', async (req, res) => {
+  const categories = await db.Category.findAll();
+  const response = new Response(200, { categories });
+
+  res.status(response.statusCode).json(response.generateJSON());
+});
+
 app.all('*', (req, res) => {
   res.status(404).send();
 });
