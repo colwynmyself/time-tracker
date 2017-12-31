@@ -10,6 +10,8 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       name: {
+        allowNull: false,
+        unique: true,
         type: Sequelize.STRING,
       },
       createdAt: {
@@ -19,6 +21,15 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
+      },
+      categoryId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Categories',
+          key: 'id',
+          as: 'categoryId',
+        },
+        onDelete: 'CASCADE',
       },
     }));
 

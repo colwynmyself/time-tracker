@@ -20,6 +20,7 @@ module.exports = {
         key: 'id',
         as: 'userId',
       },
+      onDelete: 'CASCADE',
     }));
 
     queries.push(queryInterface.addColumn('Actions', 'categoryId', {

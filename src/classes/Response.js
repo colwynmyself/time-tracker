@@ -10,6 +10,10 @@ class Response {
   generateJSON() {
     return this.internalData;
   }
+
+  send(res) {
+    res.status(this.internalStatusCode).json(this.generateJSON());
+  }
 }
 
 module.exports = Response;
