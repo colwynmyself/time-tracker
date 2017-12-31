@@ -11,3 +11,13 @@
 - `npm install`
 - `sequelize db:migrate`
 - `npm run dev`
+
+## Adding a new model
+
+- `sequelize model:create --name ModelName --attributes name:string,foo:integer,bar:date`
+- Update model to correct format. Update migration as needed
+
+## Creating new migration
+
+- `sequelize migration:create --name MigrationName`
+- Edit migration file
