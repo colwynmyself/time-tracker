@@ -2,16 +2,6 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     const queries = [];
 
-    queries.push(queryInterface.addColumn('Users', 'actionId', {
-      type: Sequelize.INTEGER,
-      onDelete: 'CASCADE',
-      references: {
-        model: 'Actions',
-        key: 'id',
-        as: 'actionId',
-      },
-    }));
-
     queries.push(queryInterface.addColumn('Actions', 'userId', {
       allowNull: false,
       type: Sequelize.INTEGER,

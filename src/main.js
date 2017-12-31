@@ -19,13 +19,13 @@ const Passport = require('./utils/passport');
 
 // Object inits
 const app = express();
+const passport = Passport(app, db);
 
 // App middleware
 app.use(helmet());
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-const passport = Passport(app, db);
 app.use(session({
   store: new RedisStore(),
   secret: credentials.sessionKey,
