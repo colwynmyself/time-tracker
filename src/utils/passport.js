@@ -19,28 +19,28 @@ module.exports = (app, db) => {
       callbackURL: '/auth/google/callback',
     },
     async (accessToken, refreshToken, profile, done) => {
-      const userId = `google+${profile.id}`;
+      const googleId = profile.id;
       const user = await db.User.findOne({
         where: {
-          googleId: userId,
+          googleId,
         },
       });
 
       if (user) {
-        logger.info(`User logged in with userId: ${userId}`);
+        logger.info(`User logged in with googleId: ${googleId}`);
         return done(null, user);
       }
 
       const newUser = await db.User.create({
         name: profile.displayName,
-        googleId: userId,
+        googleId,
       });
       if (newUser) {
-        logger.info(`New user created with userId: ${userId}`);
+        logger.info(`New user created with googleId: ${googleId}`);
         return done(null, newUser);
       }
 
-      logger.error(`User failed to be made for userId: ${userId}`);
+      logger.error(`User failed to be made for googleId: ${googleId}`);
       return done('Error logging in');
     },
   ));
