@@ -18,17 +18,17 @@ module.exports = (app, db) => {
       clientSecret: gcloudConfig.CLIENT_SECRET,
       callbackURL: '/auth/google/callback',
     },
-    async (accessToken, refreshToken, profile, done) => {
+    async (req, accessToken, refreshToken, profile, done) => {
       const googleId = profile.id;
+
       const user = await db.User.findOne({
         where: {
           googleId,
         },
       });
-
       if (user) {
         logger.info(`User logged in with googleId: ${googleId}`);
-        return done(null, user);
+        return done(null, user.dataValues);
       }
 
       const newUser = await db.User.create({
@@ -37,7 +37,7 @@ module.exports = (app, db) => {
       });
       if (newUser) {
         logger.info(`New user created with googleId: ${googleId}`);
-        return done(null, newUser);
+        return done(null, newUser.dataValues);
       }
 
       logger.error(`User failed to be made for googleId: ${googleId}`);

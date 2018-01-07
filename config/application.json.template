@@ -4,5 +4,9 @@
     "client_secret": "",
     "project_id": ""
   },
-  "sessionKey": ""
+  "sessionKey": "",
+  "jwt": {
+    secret: "",
+    expires: ""
+  }
 }
