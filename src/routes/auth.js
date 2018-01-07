@@ -16,6 +16,8 @@ module.exports = (app, db, passport) => {
     passport.authenticate('google', { failureRedirect: '/' }),
     (req, res) => {
       const user = req.user;
+      delete user.googleId;
+
       const [err, token] = jwt.generateToken(user);
 
       if (err) {

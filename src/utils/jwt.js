@@ -26,3 +26,23 @@ module.exports.verifyToken = (token) => {
     return [err];
   }
 };
+
+module.exports.getTokenFromHeaders = (headers) => {
+  const authHeader = headers.Authentication;
+
+  if (!authHeader) {
+    return [new Error('No Authentication header found')];
+  }
+
+  return [null, authHeader.replace('Bearer ', '')];
+};
+
+module.exports.verifyTokenInHeaders = (headers) => {
+  const [err, authHeader] = module.exports.getTokenFromHeaders(headers);
+
+  if (!err) {
+    return [err];
+  }
+
+  return module.exports.verifyToken(authHeader);
+};
