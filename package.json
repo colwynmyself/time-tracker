@@ -1,5 +1,5 @@
 {
-  "name": "time-tracker",
+  "name": "time-tracker-api",
   "version": "1.0.0",
   "description": "",
   "main": "src/main.js",
@@ -9,13 +9,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/colwynmyself/time-tracker.git"
+    "url": "git+ssh://git@github.com/colwynmyself/time-tracker-api.git"
   },
   "author": "Colwyn Fritze-Moor <colwyn@colwyn.me>",
   "bugs": {
-    "url": "https://github.com/colwynmyself/time-tracker/issues"
+    "url": "https://github.com/colwynmyself/time-tracker-api/issues"
   },
-  "homepage": "https://github.com/colwynmyself/time-tracker#readme",
+  "homepage": "https://github.com/colwynmyself/time-tracker-api#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
     "connect-redis": "^3.3.2",
