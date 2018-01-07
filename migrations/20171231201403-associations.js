@@ -13,16 +13,6 @@ module.exports = {
       onDelete: 'CASCADE',
     }));
 
-    queries.push(queryInterface.addColumn('Actions', 'categoryId', {
-      allowNull: false,
-      type: Sequelize.INTEGER,
-      references: {
-        model: 'Categories',
-        key: 'id',
-        as: 'categoryId',
-      },
-    }));
-
     queries.push(queryInterface.createTable('ActionCategories', {
       id: {
         allowNull: false,
@@ -60,15 +50,15 @@ module.exports = {
       },
     }));
 
-    return queries;
+    return Promise.all(queries);
   },
 
   down: (queryInterface, Sequelize) => {
     const queries = [];
 
-    queries.push(queryInterface.removeColumn('Users', 'actionId'));
     queries.push(queryInterface.removeColumn('Actions', 'userId'));
-    queries.push(queryInterface.removeColumn('Actions', 'categoryId'));
     queries.push(queryInterface.dropTable('ActionCategories'));
+
+    return Promise.all(queries);
   },
 };
