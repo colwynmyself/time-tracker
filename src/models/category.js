@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
 
     // Categories can be nested
     Category.hasMany(models.Category, {
-      as: 'SubCategories',
+      as: 'subCategories',
       foreignKey: 'categoryId',
       onDelete: 'CASCADE',
     });

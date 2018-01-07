@@ -22,7 +22,7 @@ module.exports = (app, db) => {
       where: {
         id: categoryId,
       },
-      include: ['SubCategories'],
+      include: ['subCategories'],
     }));
 
     if (err) {
