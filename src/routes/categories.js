@@ -1,11 +1,13 @@
 const Response = require('../classes/Response');
 const { evaluate } = require('../utils/async');
+const logger = require('../utils/logger');
 
 module.exports = (app, db) => {
   app.get('/categories', async (req, res) => {
     const [err, categories] = await evaluate(db.Category.findAll());
 
     if (err) {
+      logger.error('Failed to fetch categories', err);
       const response = new Response(500, err.message);
       return response.send(res);
     }
@@ -24,6 +26,7 @@ module.exports = (app, db) => {
     }));
 
     if (err) {
+      logger.error(`Failed to fetch category with id: ${categoryId}`, err);
       const response = new Response(500, err.message);
       return response.send(res);
     }
@@ -41,6 +44,7 @@ module.exports = (app, db) => {
     const [err, category] = await evaluate(db.Category.create(req.body));
 
     if (err) {
+      logger.error('Failed to create category', err, req.body);
       const response = new Response(500, err.message);
       return response.send(res);
     }
@@ -60,6 +64,7 @@ module.exports = (app, db) => {
     }));
 
     if (err) {
+      logger.error('Failed to update category', err, req.body);
       const response = new Response(500, err.message);
       return response.send(res);
     }
@@ -77,6 +82,7 @@ module.exports = (app, db) => {
     }));
 
     if (err) {
+      logger.error(`Failed to delete category with id: ${categoryId}`, err);
       const response = new Response(500, err.message);
       return response.send(res);
     }

@@ -1,6 +1,7 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const gcloudConfig = require('../../config/application.json').gcloud;
+const logger = require('./logger');
 
 module.exports = (app, db) => {
   passport.serializeUser((user, done) => {
@@ -24,7 +25,9 @@ module.exports = (app, db) => {
           googleId: userId,
         },
       });
+
       if (user) {
+        logger.info(`User logged in with userId: ${userId}`);
         return done(null, user);
       }
 
@@ -33,9 +36,11 @@ module.exports = (app, db) => {
         googleId: userId,
       });
       if (newUser) {
+        logger.info(`New user created with userId: ${userId}`);
         return done(null, newUser);
       }
 
+      logger.error(`User failed to be made for userId: ${userId}`);
       return done('Error logging in');
     },
   ));

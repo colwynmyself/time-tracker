@@ -1,3 +1,5 @@
+const logger = require('../utils/logger');
+
 class Response {
   constructor(statusCode = 200, data) {
     this.internalStatusCode = statusCode;
