@@ -1,33 +1,39 @@
 const Response = require('../classes/Response');
+const { evaluate } = require('../utils/async');
 
 module.exports = (app, db) => {
   app.get('/users', async (req, res) => {
-    const results = await db.User.findAll();
+    const [err, results] = await evaluate(db.User.findAll());
+
+    if (err) {
+      const response = new Response(500, err.message);
+      return response.send(res);
+    }
+
     const users = results.map(user => ({
       id: user.id,
       name: user.name,
     }));
 
-    const response = new Response(200, { users });
-    response.send(res);
+    const response = new Response(200, users);
+    return response.send(res);
   });
 
   app.get('/users/:userId/actions', async (req, res) => {
     const userId = (typeof req.params.userId !== 'number') ? parseInt(req.params.userId, 10) : req.params.userId;
-    const data = await db.Action
-      .findAll({
-        where: {
-          userId,
-        },
-      })
-      .then(actions => ({
-        actions,
-      }))
-      .catch(e => ({
-        error: e.message,
-      }));
 
-    const response = new Response(200, data);
-    response.send(res);
+    const [err, actions] = await evaluate(db.Action.findAll({
+      where: {
+        userId,
+      },
+    }));
+
+    if (err) {
+      const response = new Response(500, err.message);
+      return response.send(res);
+    }
+
+    const response = new Response(200, actions);
+    return response.send(res);
   });
 };
